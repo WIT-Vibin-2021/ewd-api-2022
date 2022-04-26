@@ -4,12 +4,16 @@ export default (dependencies) => {
 
     const createAccount = async (request, response, next) => {
         // Input
-        const { firstName, lastName, email, password } = request.body;
+        //  const { firstName, lastName, email, password } = request.body;
+        const firstName = request.firstName;
+        const lastName = request.lastName;
+        const email = request.email;
+        const password = request.password;
         // Treatment
         const account = await accountService.registerAccount(firstName, lastName, email, password, dependencies);
         //const output = dependencies.accountsSerializer.serialize(account);
         //output
-        response.status(201).json(account)
+        response.status(201).json(account);
     };
     const getAccount = async (request, response, next) => {
         //input

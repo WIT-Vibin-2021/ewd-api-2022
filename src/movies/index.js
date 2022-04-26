@@ -1,11 +1,12 @@
-import express from 'express';
-import { movies, movieReviews, movieDetails} from './moviesData';
 import uniqid from 'uniqid'
+import express from 'express';
+import { movies, movieReviews, movieDetails } from './moviesData';
 
 const router = express.Router(); 
 router.get('/', (req, res) => {
     res.json(movies);
 });
+// Get movie details
 router.get('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     if (movieDetails.id == id) {
@@ -17,6 +18,7 @@ router.get('/:id', (req, res) => {
         });
     }
 });
+// Get movie reviews
 router.get('/:id/reviews', (req, res) => {
     const id = parseInt(req.params.id);
     // find reviews in list
@@ -29,14 +31,15 @@ router.get('/:id/reviews', (req, res) => {
         });
     }
 });
+
 //Post a movie review
 router.post('/:id/reviews', (req, res) => {
     const id = parseInt(req.params.id);
 
     if (movieReviews.id == id) {
-        req.body.created_at = new Date();
+        req.body.created_at = '123';
         req.body.updated_at = new Date();
-        req.body.id = uniqid();
+        req.body.id =123;
         movieReviews.results.push(req.body); //push the new review onto the list
         res.status(201).json(req.body);
     } else {
