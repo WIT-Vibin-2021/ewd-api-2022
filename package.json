@@ -1,0 +1,16 @@
+{
+  "name": "ewd-api-2022",
+  "version": "1.0.0",
+  "description": "ewd",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "WIT-Vibin-2021",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^2.0.15"
+  }
+}
