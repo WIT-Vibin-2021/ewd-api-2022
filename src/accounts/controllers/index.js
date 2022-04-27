@@ -32,6 +32,8 @@ export default (dependencies) => {
 
             const { email, password } = request.body;
             const token = await accountService.authenticate(email, password, dependencies);
+            console.log("-------Controller Class---2------"); 
+            console.log(token);
             response.status(200).json({ token: `BEARER ${token}` });
         } catch (error) {
             response.status(401).json({ message: 'Unauthorised' });

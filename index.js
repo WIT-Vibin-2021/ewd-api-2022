@@ -17,8 +17,8 @@ dotenv.config();
 db.init();
 const dependencies = {
   AccountRepository : new AccountRepository(), 
-  AuthenticationService : new AuthenticationService(),
-  Authenticator: new Authenticator()
+  AuthenticationService : new AuthenticationService(),   // NOT Encryipted compariosn of password  -- Simple -> AuthSerive class
+  Authenticator: new Authenticator()  // Encryipted compariosn of password  -- Bycrypt -> Index class
 }; 
 
 

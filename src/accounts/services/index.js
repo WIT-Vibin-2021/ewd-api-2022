@@ -21,24 +21,21 @@ import Account from '../entities/Accounts';
       return accountsRepository.getByEmail(email);
     },
 
-    authenticate: async (email, password, {AccountRepository, AuthenticationService}) => {
+    authenticate: async (email, password, {AccountRepository, Authenticator}) => {
       
       console.log("-------Service Class Page---------");    
       console.log(AccountRepository);  
-      console.log(AuthenticationService);  
+      console.log(Authenticator);  
       console.log(email); 
       console.log(password); 
       
       const account = await AccountRepository.getByEmail(email);
-      console.log("-------getByEmail---------");   
-      console.log(account);  
-
-
-      const result = await AuthenticationService.compare(password, account.password);
+      const result = await Authenticator.compare(password, account.password);
       if (!result) {
-          throw new Error('Bad credentials');
+        throw new Error('Bad credentials');
       }
+      //const token = TokenManager.generate({ email: account.email });
       const token = JSON.stringify({ email: account.email });//JUST Temporary!!! TODO: make it better
       return token;
   }
-  };
+  }; 
