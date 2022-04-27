@@ -7,6 +7,7 @@ import createAccountsRouter from "./src/accounts/routes";
 import AccountRepository from './src/accounts/repositories/mongo/AccountRepository';
 import AuthenticationService from './src/accounts/security/simple/AuthenticationService';
 import Authenticator from './src/accounts/security/bcrypt/index';
+import TokenManager from './src/accounts/security/jwt/index';
 
 //import dependencies from './src/config/dependencies'; 
 
@@ -17,8 +18,9 @@ dotenv.config();
 db.init();
 const dependencies = {
   AccountRepository : new AccountRepository(), 
-  AuthenticationService : new AuthenticationService(),   // NOT Encryipted compariosn of password  -- Simple -> AuthSerive class
-  Authenticator: new Authenticator()  // Encryipted compariosn of password  -- Bycrypt -> Index class
+  //AuthenticationService : new AuthenticationService(),   // NOT Encryipted compariosn of password  -- Simple -> AuthSerive class
+  Authenticator: new Authenticator(),  // Encryipted compariosn of password  -- Bycrypt -> Index class
+  TokenManager: new TokenManager()
 }; 
 
 

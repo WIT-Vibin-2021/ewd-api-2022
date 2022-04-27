@@ -21,7 +21,7 @@ import Account from '../entities/Accounts';
       return accountsRepository.getByEmail(email);
     },
 
-    authenticate: async (email, password, {AccountRepository, Authenticator}) => {
+    authenticate: async (email, password, {AccountRepository, Authenticator, TokenManager}) => {
       
       console.log("-------Service Class Page---------");    
       console.log(AccountRepository);  
@@ -34,8 +34,17 @@ import Account from '../entities/Accounts';
       if (!result) {
         throw new Error('Bad credentials');
       }
-      //const token = TokenManager.generate({ email: account.email });
-      const token = JSON.stringify({ email: account.email });//JUST Temporary!!! TODO: make it better
+      const token = TokenManager.generate({ email: account.email });
+      //const token = JSON.stringify({ email: account.email });//JUST Temporary!!! TODO: make it better
       return token;
-  }
+  },
+
+  verifyToken:   async (token,{accountsRepository, tokenManager}) => {
+    const decoded = await tokenManager.decode(token);
+    const user = await accountsRepository.getByEmail(decoded.email);
+    if (!user) {
+        throw new Error('Bad token');
+    }
+    return user.email;
+}
   }; 

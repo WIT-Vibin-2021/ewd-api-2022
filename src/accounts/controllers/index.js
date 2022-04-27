@@ -39,12 +39,29 @@ export default (dependencies) => {
             response.status(401).json({ message: 'Unauthorised' });
         }
     };
+    const verifyToken = async (request, response, next) => {
+        try { 
+        // Input
+        const authHeader = request.headers.authorization;
 
+        // Treatment
+
+        const accessToken = authHeader.split(" ")[1];
+        const user = await accountService.verify(accessToken, dependencies);
+
+        //output
+        next();
+    }catch(err){
+        //Token Verification Failed
+        next(new Error(`Verification Failed ${err.message}`));
+        }
+    };
 
     return {
         createAccount,
         getAccount,
         authenticateAccount,
-        listAccounts
+        listAccounts,
+        verifyToken  //ADD THIS
     };
 };
