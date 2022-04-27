@@ -2,17 +2,12 @@ import accountService from "../services";
 
 export default (dependencies) => {
 
-    const createAccount = async (request, response, next) => {
-        // Input
-        //  const { firstName, lastName, email, password } = request.body;
-        const firstName = request.firstName;
-        const lastName = request.lastName;
-        const email = request.email;
-        const password = request.password;
-        // Treatment
-        const account = await accountService.registerAccount(firstName, lastName, email, password, dependencies);
-        //const output = dependencies.accountsSerializer.serialize(account);
-        //output
+    const createAccount = async (request, response, next) => {  
+        // console.log("vibin");  
+        // console.log(dependencies);      
+        const { firstName, lastName, email, password } = request.body;        
+        const account = await accountService.registerAccount(firstName, lastName, email, password, dependencies);  
+          
         response.status(201).json(account);
     };
     const getAccount = async (request, response, next) => {

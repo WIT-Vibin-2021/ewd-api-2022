@@ -1,19 +1,27 @@
+
 import dotenv from 'dotenv';
 import express from 'express';
-import createMoviesRouter from './src/movies/routes';
-import moviesRouter from './src/movies';
 
 import createAccountsRouter from "./src/accounts/routes";
-import dependencies from './src/config/dependencies'; 
+import AccountRepository from './src/accounts/repositories/mongo/AccountRepository';
+//import dependencies from './src/config/dependencies'; 
+import db from './src/config/db';
 
-dotenv.config();
+
 const app = express();
+dotenv.config();
+db.init();
+const dependencies = {
+  AccountRepository : new AccountRepository(),  
+}; 
 
 const port = process.env.PORT;
 
-// app.use('/api/movies', moviesRouter);
-// app.use('/api/accounts', createAccountsRouter(dependencies));
-app.use('/api/movies', createMoviesRouter(dependencies));
+//Application Middleware
+app.use(express.json());
+app.get('/', (req, res) => { res.end('All Good!') });
+// console.log(dependencies);    
+app.use('/api/accounts', createAccountsRouter(dependencies));
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });
