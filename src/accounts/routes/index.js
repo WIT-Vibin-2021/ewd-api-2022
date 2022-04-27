@@ -2,7 +2,7 @@ import express from 'express';
   import AccountsController from '../controllers';
 
 const createRouter = (dependencies) => {       
-    const router = express.Router();      
+    const router = express.Router(); 
     const accountsController = AccountsController(dependencies);    
     // router.route('/').post(accountsController.createAccount);
     // console.log("vibin");  
@@ -17,6 +17,9 @@ const createRouter = (dependencies) => {
 
     router.route('/:id')
         .post(accountsController.getAccount);
+
+    router.route('/security/token')
+        .post(accountsController.authenticateAccount);
 
     return router;
 };

@@ -48,7 +48,12 @@ export default class extends AccountRepository {
     }
 
     async getByEmail(userEmail) {
+        console.log("-------Acc Repo Get byEmail---------");    
+        console.log(userEmail);  
         const result = await this.model.findOne({email: userEmail});
+
+        console.log("-------Acc Repo Get byEmail  RESULT---------");    
+        console.log(result.email); 
         return new Account(result.id, result.firstName, result.lastName, result.email, result.password,result.favourites);
     }
 

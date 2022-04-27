@@ -1,8 +1,11 @@
 // import AccountsRepositoryInMemory from '../accounts/repositories/in-memory/AccountsRepository';
 import AccountsRepositoryMongo from '../accounts/repositories/mongo/AccountRepository';
+import Authenticator from './accounts/security/simple';
 
   const buildDependencies = () => {
     const dependencies = {
+      validators: AccountValidators,
+      authenticator: new Authenticator()
     };
 
     if (process.env.DATABASE_DIALECT === "in-memory") {
@@ -19,6 +22,6 @@ import AccountsRepositoryMongo from '../accounts/repositories/mongo/AccountRepos
       throw new Error('Add DB Support to project');
     }
     return dependencies;
-  };
+  };  
 
   export default buildDependencies;
