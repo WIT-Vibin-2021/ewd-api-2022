@@ -21,9 +21,16 @@ export default (dependencies) => {
     };
     const listAccounts = async (request, response, next) => {
         // Treatment
-        const accounts = await accountService.find(dependencies);
+        const accounts = await accountService.find(dependencies); 
         //output
         response.status(200).json(accounts);
+    };
+    const findByEmail = async (request, response, next) => {
+        console.log("-------Controller Class Email---------"); 
+        console.log(dependencies);  
+        const emailId = request.params.id;    
+        const account = await accountService.findByEmail(emailId, dependencies); 
+        response.status(200).json(account);
     };
     const authenticateAccount = async (request, response, next) => {
         try {
@@ -81,11 +88,12 @@ export default (dependencies) => {
 
     return {
         createAccount,
-        getAccount,
-        authenticateAccount,
+        getAccount,    
         listAccounts,
+        findByEmail,
+        authenticateAccount,
         verifyToken,
         addFavourite,
-        getFavourites  
+        getFavourites      
     };
 };

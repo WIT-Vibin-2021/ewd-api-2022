@@ -52,7 +52,7 @@ export default class extends AccountRepository {
         return new Account(id, firstName, lastName, email, password, favourites );
     }
 
-    async getByEmail(userEmail) {
+    async findByEmail(userEmail) {
         console.log("-------Acc Repo Get byEmail---------");    
         console.log(userEmail);  
         const result = await this.model.findOne({email: userEmail});
@@ -68,4 +68,5 @@ export default class extends AccountRepository {
             return new Account(result.id, result.firstName, result.lastName, result.email, result.password, result.favourites);
         });
     }
+    
 }

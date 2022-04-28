@@ -30,8 +30,8 @@ const port = process.env.PORT;
 app.use(express.json());
 app.get('/', (req, res) => { res.end('All Good!') });
 
-console.log("-------Main Index Page---------");    
-console.log(dependencies);    
+// console.log("-------Main Index Page---------");    
+// console.log(dependencies);    
 
 app.use('/api/accounts', createAccountsRouter(dependencies));
 app.listen(port, () => {
