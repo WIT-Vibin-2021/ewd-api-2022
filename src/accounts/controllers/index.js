@@ -33,13 +33,11 @@ export default (dependencies) => {
         response.status(200).json(account);
     };
     const authenticateAccount = async (request, response, next) => {
-        try {
-            console.log("-------Controller Class---------");    
+        try {            
             console.log(dependencies);  
 
             const { email, password } = request.body;
-            const token = await accountService.authenticate(email, password, dependencies);
-            console.log("-------Controller Class---2------"); 
+            const token = await accountService.authenticate(email, password, dependencies);           
             console.log(token);
             response.status(200).json({ token: `BEARER ${token}` });
         } catch (error) {
@@ -76,9 +74,11 @@ export default (dependencies) => {
             next(new Error(`Invalid Data ${err.message}`));
         }
     };
+
     const getFavourites = async (request, response, next) => {
         try {
             const id = request.params.id;
+            console.log("Control getFavourites"); 
             const favourites = await accountService.getFavourites(id, dependencies);
             response.status(200).json(favourites);
         } catch (err) {

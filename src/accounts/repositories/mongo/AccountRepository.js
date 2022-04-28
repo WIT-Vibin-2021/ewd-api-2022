@@ -68,5 +68,15 @@ export default class extends AccountRepository {
             return new Account(result.id, result.firstName, result.lastName, result.email, result.password, result.favourites);
         });
     }
+    async getFavourites(userId) {
+        console.log("-------Acc Repo Get FAV get Id---------");    
+        console.log(userId); 
+        const result = await this.model.findById(userId);
+        console.log("-------Acc Repo Get FAV get Id---------");    
+        console.log(result);
+
+        const {id, firstName, lastName, email, password, favourites } = result;
+        return new Account(id, firstName, lastName, email, password, favourites );
+    }    
     
 }

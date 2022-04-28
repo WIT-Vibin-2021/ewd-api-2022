@@ -49,7 +49,6 @@ import Account from '../entities/Accounts';
       return user.email;
     },
 
-
     addFavourite: async (accountId, movieId, { AccountRepository }) => {     
       const account = await AccountRepository.get(accountId);
       console.log("---- Add Fav Service ---");
@@ -57,5 +56,11 @@ import Account from '../entities/Accounts';
       account.favourites.push(movieId);
       return await AccountRepository.merge(account);
 
-    }
+    },
+    getFavourites: async (accountId, { AccountRepository }) => {
+      console.log("Service getFavourites"); 
+      const account = await AccountRepository.getFavourites(accountId);
+      return account.favourites;
+    },
+    
 };  
