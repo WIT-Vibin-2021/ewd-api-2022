@@ -17,9 +17,9 @@ import Account from '../entities/Accounts';
       return accountsRepository.find();
     },
 
-    findByEmail: (email, {AccountRepository})=>{
+    getByEmail: (email, {AccountRepository})=>{
       console.log("-------Services GET ACCOUNT ID Class---------");   
-      return AccountRepository.findByEmail(email);
+      return AccountRepository.getByEmail(email);
     },
 
     authenticate: async (email, password, {AccountRepository, Authenticator, TokenManager}) => {

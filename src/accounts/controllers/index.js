@@ -25,11 +25,11 @@ export default (dependencies) => {
         //output
         response.status(200).json(accounts);
     };
-    const findByEmail = async (request, response, next) => {
+    const getByEmail = async (request, response, next) => {
         console.log("-------Controller Class Email---------"); 
         console.log(dependencies);  
         const emailId = request.params.id;    
-        const account = await accountService.findByEmail(emailId, dependencies); 
+        const account = await accountService.getByEmail(emailId, dependencies); 
         response.status(200).json(account);
     };
     const authenticateAccount = async (request, response, next) => {
@@ -90,7 +90,7 @@ export default (dependencies) => {
         createAccount,
         getAccount,    
         listAccounts,
-        findByEmail,
+        getByEmail,
         authenticateAccount,
         verifyToken,
         addFavourite,

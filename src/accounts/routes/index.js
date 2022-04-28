@@ -16,7 +16,7 @@ const createRouter = (dependencies) => {
 
     router.route('/:id').post(accountsController.getAccount); 
 
-    router.route('/email/:id').get(accountsController.findByEmail);  
+    router.route('/email/:id').get(accountsController.getByEmail);  
 
     router.route('/security/token').post(accountsController.authenticateAccount);  
 
