@@ -34,17 +34,30 @@ import Account from '../entities/Accounts';
       if (!result) {
         throw new Error('Bad credentials');
       }
-      const token = TokenManager.generate({ email: account.email });
-      //const token = JSON.stringify({ email: account.email });//JUST Temporary!!! TODO: make it better
+      //const token = TokenManager.generate({ email: account.email });
+      const token = JSON.stringify({ email: account.email });//JUST Temporary!!! TODO: make it better
       return token;
-  },
+    },
 
-  verifyToken:   async (token,{accountsRepository, tokenManager}) => {
-    const decoded = await tokenManager.decode(token);
-    const user = await accountsRepository.getByEmail(decoded.email);
-    if (!user) {
-        throw new Error('Bad token');
+    verifyToken:   async (token,{accountsRepository, tokenManager}) => {
+      const decoded = await tokenManager.decode(token);
+      const user = await accountsRepository.getByEmail(decoded.email);
+      if (!user) {
+          throw new Error('Bad token');
+      }
+      return user.email;
+    },
+
+    getFavourites: async (accountId, { accountsRepository }) => {
+      const account = await accountsRepository.get(accountId);
+      return account.favourites;
+    },
+    addFavourite: async (accountId, movieId, { AccountRepository }) => {     
+      const account = await AccountRepository.get(accountId);
+      console.log("---- Add Fav Service ---");
+      console.log(movieId);
+      account.favourites.push(movieId);
+      return await AccountRepository.merge(account);
+
     }
-    return user.email;
-}
-  }; 
+};  

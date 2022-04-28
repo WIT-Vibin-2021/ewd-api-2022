@@ -19,8 +19,14 @@ const createRouter = (dependencies) => {
         .post(accountsController.getAccount);
 
     router.route('/security/token')
-        .post(accountsController.authenticateAccount);
+        .post(accountsController.authenticateAccount);  
 
+    router.route('/:id/favourites')
+        .post(accountsController.addFavourite); 
+
+    router.route('/:id/favourites')
+        .get(accountsController.getFavourites);
+ 
     return router;
 };
 export default createRouter;
