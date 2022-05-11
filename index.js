@@ -22,7 +22,7 @@ const dependencies = {
   AccountRepository : new AccountRepository(), 
   //AuthenticationService : new AuthenticationService(),   // NOT Encryipted compariosn of password  -- Simple -> AuthSerive class
   Authenticator: new Authenticator(),  // Encryipted compariosn of password  -- Bycrypt -> Index class
-  TokenManager: new TokenManager(),
+  tokenManager: new TokenManager(),
   accountValidator: accountSchema
 }; 
 

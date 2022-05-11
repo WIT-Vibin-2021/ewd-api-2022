@@ -22,7 +22,7 @@ import Account from '../entities/Accounts';
       return AccountRepository.getByEmail(email);
     },
 
-    authenticate: async (email, password, {AccountRepository, Authenticator, TokenManager}) => {
+    authenticate: async (email, password, {AccountRepository, Authenticator, tokenManager}) => {
       
       console.log("-------Service Class Page---------");    
       console.log(AccountRepository);  
@@ -35,14 +35,21 @@ import Account from '../entities/Accounts';
       if (!result) {
         throw new Error('Bad credentials');
       }
-      //const token = TokenManager.generate({ email: account.email });
-      const token = JSON.stringify({ email: account.email });//JUST Temporary!!! TODO: make it better
+      console.log(result+" ---- authenticate service");
+      const token = tokenManager.generate({ email: account.email });
+      //const token = JSON.stringify({ email: account.email });//JUST Temporary!!! TODO: make it better
       return token;
     },
 
-    verifyToken:   async (token,{accountsRepository, tokenManager}) => {
-      const decoded = await tokenManager.decode(token);
-      const user = await accountsRepository.getByEmail(decoded.email);
+    verifyToken:   async (token,{AccountRepository,  tokenManager}) => {
+      console.log("---- VerifyToken Account Controller 3 ---");
+      console.log(token);
+      console.log( tokenManager);
+
+      const decoded = await  tokenManager.decode(token);
+      console.log("---- VerifyToken Account Controller 4 ---");
+     
+      const user = await AccountRepository.getByEmail(decoded.email);
       if (!user) {
           throw new Error('Bad token');
       }
@@ -60,7 +67,7 @@ import Account from '../entities/Accounts';
     getFavourites: async (accountId, { AccountRepository }) => {
       console.log("Service getFavourites"); 
       const account = await AccountRepository.getFavourites(accountId);
-      return account;
+      return account.favourites;
     },
     
 };  
