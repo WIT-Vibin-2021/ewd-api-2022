@@ -60,7 +60,7 @@ import Account from '../entities/Accounts';
     getFavourites: async (accountId, { AccountRepository }) => {
       console.log("Service getFavourites"); 
       const account = await AccountRepository.getFavourites(accountId);
-      return account.favourites;
+      return account;
     },
     
 };  

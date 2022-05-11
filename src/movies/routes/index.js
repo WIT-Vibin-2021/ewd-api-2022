@@ -3,6 +3,8 @@ import express from 'express';
   import AccountsController from '../../accounts/controllers';
 
   const createMoviesRouter = (dependencies) => {
+
+    console.log("Movies Routes");
       const router = express.Router();
       // load controllers with dependencies
       const moviesController = MoviesController(dependencies);

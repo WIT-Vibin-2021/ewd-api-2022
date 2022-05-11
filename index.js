@@ -8,6 +8,7 @@ import AccountRepository from './src/accounts/repositories/mongo/AccountReposito
 import AuthenticationService from './src/accounts/security/simple/AuthenticationService';
 import Authenticator from './src/accounts/security/bcrypt/index';
 import TokenManager from './src/accounts/security/jwt/index';
+import moviesRouter from './src/movies';
 
 //import dependencies from './src/config/dependencies'; 
 
@@ -28,12 +29,17 @@ const port = process.env.PORT;
 
 //Application Middleware
 app.use(express.json());
-app.get('/', (req, res) => { res.end('All Good!') });
+app.get('/', (req, res) => { res.end('All Good!')});
 
-// console.log("-------Main Index Page---------");    
+ console.log("-------Main Index Page---------");    
 // console.log(dependencies);    
 
 app.use('/api/accounts', createAccountsRouter(dependencies));
+// app.listen(port, () => {
+//   console.info(`Server running at ${port}`);
+// });
+
+app.use('/api/movies', moviesRouter);
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });
