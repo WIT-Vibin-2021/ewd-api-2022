@@ -3,8 +3,8 @@ import accountService from "../services";
 export default (dependencies) => {
 
     const createAccount = async (request, response, next) => {  
-        // console.log("vibin");  
-        // console.log(dependencies);      
+         console.log("---- Account Contoller-----");  
+         console.log(dependencies);      
         const { firstName, lastName, email, password } = request.body;        
         const account = await accountService.registerAccount(firstName, lastName, email, password, dependencies);  
           
@@ -74,7 +74,6 @@ export default (dependencies) => {
             next(new Error(`Invalid Data ${err.message}`));
         }
     };
-
     const getFavourites = async (request, response, next) => {
         try {
             const id = request.params.id;

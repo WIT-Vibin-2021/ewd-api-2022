@@ -1,14 +1,17 @@
+import AccountValidator from './../controllers/validation';
 import express from 'express';
-  import AccountsController from '../controllers';
+import AccountsController from '../controllers';
 
 const createRouter = (dependencies) => {       
     const router = express.Router(); 
-    const accountsController = AccountsController(dependencies);    
-    // router.route('/').post(accountsController.createAccount);
-    //  console.log("vibin");  
-    //  console.log(dependencies);  
+    const accountsController = AccountsController(dependencies);     
+    const accountValidator = AccountValidator(dependencies);
+    
+    console.log("--------Account Routes 1----------"); 
 
-    router.post('/', accountsController.createAccount); 
+    //router.post('/', accountsController.createAccount); 
+    //router.route('/').post(validationController.validateAccount,accountsController.createAccount); 
+    router.post('/', accountValidator.validateAccount , accountsController.createAccount);
 
     router.route('/').get(accountsController.listAccounts);
 

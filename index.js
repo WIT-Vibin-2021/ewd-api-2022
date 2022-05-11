@@ -10,10 +10,10 @@ import Authenticator from './src/accounts/security/bcrypt/index';
 import TokenManager from './src/accounts/security/jwt/index';
 import moviesRouter from './src/movies';
 import createMoviesRouter from './src/movies/routes';
-
+import errorHandler from './src/utils/ErrorHandler';
 //import dependencies from './src/config/dependencies'; 
-
 import db from './src/config/db';
+import accountSchema from './src/accounts/validators';
 
 const app = express();
 dotenv.config(); 
@@ -22,9 +22,11 @@ const dependencies = {
   AccountRepository : new AccountRepository(), 
   //AuthenticationService : new AuthenticationService(),   // NOT Encryipted compariosn of password  -- Simple -> AuthSerive class
   Authenticator: new Authenticator(),  // Encryipted compariosn of password  -- Bycrypt -> Index class
-  TokenManager: new TokenManager()
+  TokenManager: new TokenManager(),
+  accountValidator: accountSchema
 }; 
 
+app.use(errorHandler);   //Error handling from Utils folder
 
 const port = process.env.PORT;
 

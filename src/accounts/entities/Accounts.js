@@ -1,5 +1,5 @@
 export default class {
-    constructor(id = undefined, firstName, lastName, email, password, favourites ) {
+    constructor(id = undefined, firstName, lastName, email, password, favourites) {
       this.id = id;
       this.firstName = firstName;
       this.lastName = lastName;
