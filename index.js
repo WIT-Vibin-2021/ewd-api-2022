@@ -9,6 +9,7 @@ import AuthenticationService from './src/accounts/security/simple/Authentication
 import Authenticator from './src/accounts/security/bcrypt/index';
 import TokenManager from './src/accounts/security/jwt/index';
 import moviesRouter from './src/movies';
+import createMoviesRouter from './src/movies/routes';
 
 //import dependencies from './src/config/dependencies'; 
 
@@ -35,11 +36,9 @@ app.get('/', (req, res) => { res.end('All Good!')});
 // console.log(dependencies);    
 
 app.use('/api/accounts', createAccountsRouter(dependencies));
-// app.listen(port, () => {
-//   console.info(`Server running at ${port}`);
-// });
+//app.use('/api/movies', moviesRouter);   // From Local Movies Data
+app.use('/api/movies', createMoviesRouter(dependencies));  // From TMDB Db
 
-app.use('/api/movies', moviesRouter);
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });

@@ -10,8 +10,8 @@ import express from 'express';
       const moviesController = MoviesController(dependencies);
       const accountsController = AccountsController(dependencies);
 
-      router.route('/*')
-        .all(accountsController.verifyToken); //ADD THIS: require token for all routes
+      // router.route('/*')
+      //   .all(accountsController.verifyToken); //ADD THIS: require token for all routes
 
       router.route('/:id')
           .get(moviesController.getMovie);
