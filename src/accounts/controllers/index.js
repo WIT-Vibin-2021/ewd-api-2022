@@ -50,10 +50,10 @@ export default (dependencies) => {
 
         // Treatment
         console.log("---- VerifyToken Account Controller 2 ---");
-        console.log(authHeader);
+        //console.log(authHeader);
         
         const accessToken = authHeader.split(" ")[1];  // Example : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWxAZ21haWwuY29tIiwiaWF0IjoxNjU"
-        console.log("Vibin Access Token -> " + accessToken);
+        console.log("-----Access Token -> " + accessToken);
         const user = await accountService.verifyToken(accessToken, dependencies);
 
         //output
@@ -66,7 +66,7 @@ export default (dependencies) => {
     const addFavourite = async (request, response, next) => {
         try {
             console.log("---- Add Fav Controller ---");
-            console.log(dependencies);
+            //console.log(dependencies);
 
             const { movieId } = request.body;                
             const id = request.params.id;
