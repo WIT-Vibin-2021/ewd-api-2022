@@ -87,6 +87,18 @@ export default (dependencies) => {
         }
     };
 
+    const deleteFavourites = async (request, response, next) => {
+        try {
+            const id = request.params.id;
+            const movieid = request.params.movieid;
+            console.log("Control delet Favourites"); 
+            const favourites = await accountService.deleteFavourites(id, movieid, dependencies);
+            response.status(200).json(favourites);
+        } catch (err) {
+            next(new Error(`Invalid Data ${err.message}`));
+        }
+    };
+
     return {
         createAccount,
         getAccount,    
@@ -95,6 +107,7 @@ export default (dependencies) => {
         authenticateAccount,
         verifyToken,
         addFavourite,
-        getFavourites      
+        getFavourites,
+        deleteFavourites
     };
 };

@@ -16,6 +16,10 @@ export default  class {
       throw new Error('ERR_METHOD_NOT_IMPLEMENTED');
     }
 
+    delete(accountId,movieId) {
+      throw new Error('ERR_METHOD_NOT_IMPLEMENTED');
+    }
+
     getByEmail(email) {
       throw new Error('ERR_METHOD_NOT_IMPLEMENTED');
     }

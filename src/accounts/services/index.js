@@ -69,5 +69,11 @@ import Account from '../entities/Accounts';
       const account = await AccountRepository.getFavourites(accountId);
       return account.favourites;
     },
+
+    deleteFavourites: async (accountId, movieId, { AccountRepository }) => {
+      console.log("Service getFavourites"); 
+      const account = await AccountRepository.deleteFavourites(accountId, movieId);
+      return account.favourites;
+    },
     
 };  

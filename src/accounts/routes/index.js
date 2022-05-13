@@ -26,6 +26,8 @@ const createRouter = (dependencies) => {
     router.route('/:id/favourites').post(accountsController.addFavourite); 
 
     router.route('/:id/favourites').get(accountsController.getFavourites);
+
+    router.route('/:id/favourites/:movieid').delete(accountsController.deleteFavourites);
  
     return router; 
 };

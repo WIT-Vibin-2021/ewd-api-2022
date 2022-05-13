@@ -41,6 +41,18 @@ export default class extends AccountRepository {
         return this.model.findOneAndDelete(userId);
     }
 
+    async deleteFavourites(userId, moviesId) {
+        //const {id, firstName, lastName, email, password, favourites } = accountEntity;
+        //await this.model.findByIdAndUpdate(id, { firstName, lastName, email, password, favourites });
+
+        await this.model.findOneAndUpdate({_id:userId},
+        { $pull: { favourites: moviesId } });
+
+            //{_id:'627bf3b233c6af61500ffc22'},
+            //{$pull:{"items.item":"cd"}},{new:true},function(err,object{});        
+        return 'Deleted';
+    }
+
     async get(userId) {
         console.log("-------Acc Repo Get get Id---------");    
         console.log(userId); 
@@ -68,6 +80,7 @@ export default class extends AccountRepository {
             return new Account(result.id, result.firstName, result.lastName, result.email, result.password, result.favourites);
         });
     }
+
     async getFavourites(userId) {
         console.log("-------Acc Repo Get FAV get Id---------");    
         console.log(userId); 
