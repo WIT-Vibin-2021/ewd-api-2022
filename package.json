@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node index.js",
+    "test": "newman run ./tests/movies_collection.json -e ./tests/movies_environment.json --reporters htmlextra,cli --reporter-htmlextra-export ./tests/reports/report.html"
   },
   "author": "WIT-Vibin-2021",
   "license": "ISC",
@@ -19,6 +21,8 @@
     "babel-preset-env": "^1.7.0",
     "eslint": "^8.14.0",
     "eslint-plugin-react": "^7.29.4",
+    "newman": "^5.3.2",
+    "newman-reporter-htmlextra": "^1.22.9",
     "nodemon": "^2.0.15"
   },
   "dependencies": {

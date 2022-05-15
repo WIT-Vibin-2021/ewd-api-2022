@@ -1,0 +1,388 @@
+openapi: 3.0.1
+info:
+  title: Movies App API Swagger Doc
+  description: All API details of movies web application
+  version: '0.1'
+servers:
+  - url: https://localhost:8080/
+  
+paths:
+
+### --- Movies ----#############################
+  /api/movies/:
+    get:
+      responses:
+        '200':
+          description: This is a list of the movies from TMDB
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movies'
+        '404':
+          description: Server or data Not Found
+          
+  /api/movies/{movie-id}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/MovieIdPath'
+      responses:
+        '200':
+          description: Details of a movie based on Id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movies'
+        '404':
+          description: Server or data Not Found
+          
+  /api/movies/{movie-id}/poster:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/MovieIdPath'
+      responses:
+        '200':
+          description: Details of a movie based on Id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movies'
+        '404':
+          description: Server or data Not Found
+          
+  /api/movies/upcoming/:
+    get:
+      responses:
+        '200':
+          description: Details of a upcoming movie
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MoviePoster'
+        '404':
+          description: Server or data Not Found
+  
+  /api/accounts/{user-id}/favourites/{movie-id}:
+    delete:
+      parameters:
+        - $ref: '#/components/parameters/MovieIdPath'
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+          '204':
+            description: Bp Oxygen level details found and deleted successfully
+            content: 
+              application/json: {}
+          '404':
+            description: Server Not found
+
+###---Account ----#############################
+  /api/accounts/:
+    post: 
+      description: Add a new account to the app
+      requestBody: 
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Account'
+      responses: 
+        '201':
+          description: The new account has been created
+        '200':
+          description: Error In data or API
+        '404':
+          description: Server or data Not Found
+          
+  /api/accounts/security/token:
+    post: 
+      description: Get token based on login details
+      requestBody: 
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/AccountToken'
+      responses: 
+        '201':
+          description: The Token has been fetched
+        '200':
+          description: Error In data or API
+        '404':
+          description: Server or data Not Found
+        '401':
+          description: Unauthorised
+          
+  /api/accounts/{user-id}/favourites:
+    post: 
+      description: Add a new account to the app
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      requestBody: 
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/MovieId'
+      responses: 
+        '201':
+          description: The new account has been created
+        '200':
+          description: Error In data or API
+        '500':
+          description: Internal Server Error
+        '404':
+          description: Server or data Not Found
+          
+###---Fantasy Movies ----#############################
+  /api/fantasymovies/:
+    post:
+      security:
+        - bearerAuth: []
+      description: Add a new fantasy movie to the app
+      requestBody: 
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/FantasyMovie'
+      responses: 
+        '201':
+          description: The new account has been created
+        '200':
+          description: Error In data or API
+        '500':
+          description: Internal server error
+        '404':
+          description: Server or data Not Found
+
+#############################################
+#              Token                        #
+#############################################          
+components:
+  securitySchemes:
+    bearerAuth:       
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+#############################################
+#            Parameters                     #
+#############################################
+  parameters:
+    MovieIdPath: 
+      in: path
+      name: movie-id
+      description: movie id path parameter
+      required: true
+      schema:
+        type: integer
+        example: 3232
+        
+    UserIdPath: 
+      in: path
+      name: user-id
+      description: user id parameter
+      required: true
+      schema:
+          type: string
+          example: 627bf3b233c6af61500ffc22
+          
+    ActivityIdPath:
+      in: path
+      name: activity-id
+      description: Activity id path parameter
+      required: true
+      schema:
+        type: integer
+        example: 8281
+        
+    BpOxymeterIdPath:
+      in: path
+      name: bpoxy-id
+      description: BpOxymeter id path parameter
+      required: true
+      schema:
+        type: integer
+        example: 8281
+        
+    FoodIdPath:
+      in: path
+      name: food-id
+      description: BpOxymeter id path parameter
+      required: true
+      schema:
+        type: integer
+        example: 8281
+        
+    NutritionId:
+      in: path
+      name: nit-id
+      description: BpOxymeter id path parameter
+      required: true
+      schema:
+        type: integer
+        example: 8281
+        
+    FromDate:
+      in: path
+      name: frm_date
+      description: From Date
+      required: true
+      schema:
+        type: string
+        example: 2020-06-10T05:59:27.258Z
+        
+    ToDate:
+      in: path
+      name: to_date
+      description: From Date
+      required: true
+      schema:
+        type: string
+        example: 2020-06-10T05:59:27.258Z
+        
+    OnDate:
+      in: path
+      name: on_date
+      description: From Date
+      required: true
+      schema:
+        type: string
+        example: 2020-06-10T05:59:27.258Z
+#############################################
+#           Schema                          #
+#############################################        
+  schemas:
+    Movies:
+      type: object
+      properties:
+        adult:
+          type: string
+          example: false
+        backdrop_path:
+          type: number
+          example: /egoyMDLqCxzjnSrWOz50uLlJWmD.jpg
+        genre_ids: 
+          type: string
+          example: [28, 878, 35,]
+        id: 
+          type: number
+          example: 675433
+        original_title: 
+          type: string
+          example: Sonic the Hedgehog 2
+        original_language: 
+          type: string
+          example: en
+        overview: 
+          type: string
+          example: After settling in Green Hills
+        popularity: 
+          type: number
+          example: 60352
+        poster_path: 
+          type: string
+          example: /6DrHO1jr3qVrViUO6s6kFiAGM7.jpg
+        release_date: 
+          type: string
+          example: "2022-03-30"
+        title: 
+          type: string
+          example: Sonic the Hedgehog
+        video: 
+          type: string
+          example: false
+        vote_average: 
+          type: number
+          example: 7.8
+        vote_count: 
+          type: number
+          example: 3416
+    
+    MoviePoster:
+      type: object
+      properties:
+        aspect_ratio:
+          type: number
+          example: 1.34
+        height:
+          type: number
+          example: 2160
+        iso_639_1: 
+          type: string
+          example: null
+        file_path: 
+          type: string
+          example: /6DrHO1jr3qVrViUO6s6kFiAGM7.jpg
+        vote_average: 
+          type: number
+          example: 7.8
+        vote_count: 
+          type: number
+          example: 3416
+        width: 
+          type: number
+          example: 2300
+          
+    Account:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Jhone
+        lastName:
+          type: string
+          example: Groot
+        email:
+          type: string
+          example: jhonegroot@mail.com
+        password:
+          type: string
+          example: alpha@$%Numeric
+    
+    MovieId:
+      type: object
+      properties:
+        movieId:
+          type: number
+          example: 3498
+          
+    AccountToken:
+      type: object
+      properties:
+        email:
+          type: string
+          example: jhonegroot@mail.com
+        password:
+          type: string
+          example: alpha@$%Numeric
+  
+    FantasyMovie:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Test Title of the Movie
+        genre:
+          type: string
+          example: Action
+        language:
+          type: string
+          example: English
+        release:
+          type: string
+          example: 2022-06-10
+        time:
+          type: string
+          example: 02:20:10
+        overview:
+          type: string
+          example: Test Overview of the Movie
+          

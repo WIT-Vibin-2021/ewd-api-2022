@@ -45,12 +45,10 @@ export default class extends AccountRepository {
         //const {id, firstName, lastName, email, password, favourites } = accountEntity;
         //await this.model.findByIdAndUpdate(id, { firstName, lastName, email, password, favourites });
 
-        await this.model.findOneAndUpdate({_id:userId},
-        { $pull: { favourites: moviesId } });
-
-            //{_id:'627bf3b233c6af61500ffc22'},
-            //{$pull:{"items.item":"cd"}},{new:true},function(err,object{});        
-        return 'Deleted';
+        const result =await this.model.findOneAndUpdate({_id:userId},
+        { $pull: { favourites: moviesId } });  
+        const {id, firstName, lastName, email, password, favourites } = result;   
+        return new Account(id, firstName, lastName, email, password, favourites );
     }
 
     async get(userId) {
