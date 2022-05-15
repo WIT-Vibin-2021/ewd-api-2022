@@ -37,9 +37,9 @@ router.post('/:id/reviews', (req, res) => {
     const id = parseInt(req.params.id);
 
     if (movieReviews.id == id) {
-        req.body.created_at = '123';
+        req.body.created_at =new Date();
         req.body.updated_at = new Date();
-        req.body.id =123;
+        req.body.id =uniqid();
         movieReviews.results.push(req.body); //push the new review onto the list
         res.status(201).json(req.body);
     } else {

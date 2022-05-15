@@ -1,0 +1,21 @@
+{
+	"id": "c1e25816-172b-46b5-b3a1-afae1504ac60",
+	"name": "Local Test Environment",
+	"values": [
+		{
+			"key": "url",
+			"value": "http://localhost:8080",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "movieId",
+			"value": "527774",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2022-05-14T20:08:27.648Z",
+	"_postman_exported_using": "Postman/9.18.1"
+}

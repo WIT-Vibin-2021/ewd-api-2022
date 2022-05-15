@@ -10,8 +10,10 @@ export default class extends EncryptionService {
 
     async compare(password, encryptedPassword) {
         try {
-            // Compare password
+            // Compare password            
+            console.log(password +"---"+encryptedPassword +" ---- bcrypt");
             const result = await bcrypt.compare(password, encryptedPassword);
+            console.log(result+" ---- bcrypt");
             return result;
         } catch (error) {
             return false;
