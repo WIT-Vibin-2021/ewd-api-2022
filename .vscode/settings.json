@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/9e7fec84-19a6-4bae-8d3f-38884b5885da/resourceGroups/moviesapp-expressjs-mongodb-WIT/providers/Microsoft.Web/sites/witmovieApp",
+    "appService.deploySubpath": "."
+}
