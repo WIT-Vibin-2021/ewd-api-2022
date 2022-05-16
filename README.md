@@ -84,5 +84,3 @@ export const getMovies = () => {
 . . Briefly explain any non-standard features, functional or non-functional (e.g. user registration, authentication) developed for the app  
 
 ## Independent learning.
-
-. . State the non-standard aspects of React/Express/Node (or other related technologies) that you researched and applied in this assignment . .  
