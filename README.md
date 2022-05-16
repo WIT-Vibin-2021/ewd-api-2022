@@ -1,10 +1,30 @@
 # Assignment 2 - Web API.
 
-Name: Your Name
+Name: Vibin Varghese
 
 ## Overview
 
-Give a brief overview of the Web API functionality.
+For the movies app, I have created Web API which will do the following
+
+#### Posting Data to MongoDB
++ Create Account
++ Create fantasy movies
++ Add favourite movies to Account
+#### Geting Data from MongoDB & TMDB
++ Account Login
++ Get Token 
++ Discover movies from TMDB
++ Get movies by ID from TMDB
++ Upcoming movies from TMDB
++ Popular TV Shows from TMDB with pagination
++ Video Trailer of movies
++ Poster of movies
++ Get account details by mail Id
++ Get favourite movied based on user Id
++ Get fantasy movies
+#### Deleteing data from MongoDB
++ Delete favourite movies
++ Delete fantasy movies
 
 ## Installation Requirements
 
