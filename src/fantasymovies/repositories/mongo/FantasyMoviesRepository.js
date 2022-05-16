@@ -1,6 +1,7 @@
 import FantasyMovies from '../../entities/FantasyMovies';
 import mongoose from 'mongoose';
 import FantasyMoviesRepository from '../Repository';
+import logger from '../../../utils/logger';
 
 export default class extends FantasyMoviesRepository {
 
@@ -19,7 +20,7 @@ export default class extends FantasyMoviesRepository {
     }
  
     async persist(fantasyMoviesEntity) {
-    console.log("---- Fantasy Repo--");        
+        logger.customLogger.info('Fantasy Repo: Persist');
       //console.log(fantasyMoviesEntity);        
         const {title,genre,language,release,time,overview} = fantasyMoviesEntity;
         const mongooseFM = new this.model({ title,genre,language,release,time, overview});
@@ -37,26 +38,18 @@ export default class extends FantasyMoviesRepository {
             );
     }
 
-    // async merge(fantasyMoviesEntity) {
-    //     const {id, firstName, lastName, email, password, favourites } = fantasyMoviesEntity;
-    //     await this.model.findByIdAndUpdate(id, { firstName, lastName, email, password, favourites });
-    //     console.log({id, firstName, lastName, email, password, favourites });
-    //     return fantasyMoviesEntity;
-    // }
-
-    // async remove(userId) {
-    //     return this.model.findOneAndDelete(userId);
-    // }
-
-    // async get(userId) {
-    //     console.log("-------Acc Repo Get get Id---------");    
-    //     console.log(userId); 
-    //     const result = await this.model.findById(userId);
-    //     console.log("-------Acc Repo Get get Id---------");    
-    //     console.log(result);
-
-    //     const {id, firstName, lastName, email, password, favourites } = result;
-    //     return new FantasyMovies(id, firstName, lastName, email, password, favourites );
-    // }   
+    async get(fantasyMoviesId) {
+        logger.customLogger.info('Fantasy Repo: Get');    
+        const result = await this.model.findById(fantasyMoviesId);          
+        const {id, title, genre, language, release, time,overview } = result;
+        return new FantasyMovies(id, title, genre, language, release, time,overview  );
+    }
+    
+    async deleteFantasy(fantasyMovieId) {
+        logger.customLogger.info('Fantasy Repo: Delete Fantasy');
+        const result =await this.model.deleteOne({_id:fantasyMovieId});
+        const {id, firstName, lastName, email, password, favourites } = result;   
+        return new FantasyMovies(id, firstName, lastName, email, password, favourites );
+    }
     
 }

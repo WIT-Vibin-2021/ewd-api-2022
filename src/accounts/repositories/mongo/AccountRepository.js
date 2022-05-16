@@ -35,7 +35,7 @@ export default class extends AccountRepository {
         logger.customLogger.info('Account Repo: Merge');
         const {id, firstName, lastName, email, password, favourites } = accountEntity;
         await this.model.findByIdAndUpdate(id, { firstName, lastName, email, password, favourites });
-        console.log({id, firstName, lastName, email, password, favourites });
+        //console.log({id, firstName, lastName, email, password, favourites });
         return accountEntity;
     }
 
@@ -56,10 +56,10 @@ export default class extends AccountRepository {
 
     async get(userId) {
         logger.customLogger.info('Account Repo: Get Users');
-        console.log(userId); 
+        //console.log(userId); 
         const result = await this.model.findById(userId);
         //console.log("-------Acc Repo Get get Id---------");    
-        console.log(result);
+        //console.log(result);
 
         const {id, firstName, lastName, email, password, favourites } = result;
         return new Account(id, firstName, lastName, email, password, favourites );
@@ -68,11 +68,11 @@ export default class extends AccountRepository {
     async getByEmail(userEmail) {
         //console.log("-------Acc Repo Get byEmail---------");    
         logger.customLogger.info('Account Repo: Get Users by email id');
-        console.log(userEmail);  
+        //console.log(userEmail);  
         const result = await this.model.findOne({email: userEmail});
 
         //console.log("-------Acc Repo Get byEmail  RESULT---------");    
-        console.log(result.email); 
+        //console.log(result.email); 
         return new Account(result.id, result.firstName, result.lastName, result.email, result.password,result.favourites);
     }
 
@@ -85,10 +85,10 @@ export default class extends AccountRepository {
 
     async getFavourites(userId) {
         logger.customLogger.info('Account Repo: Get Favourite');
-        console.log(userId); 
+        //console.log(userId); 
         const result = await this.model.findById(userId);
         //console.log("-------Acc Repo Get FAV get Id---------");    
-        console.log(result);
+        //console.log(result);
 
         const {id, firstName, lastName, email, password, favourites } = result;
         return new Account(id, firstName, lastName, email, password, favourites );

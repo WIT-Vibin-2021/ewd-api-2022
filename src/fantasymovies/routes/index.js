@@ -16,8 +16,12 @@ const createRouter = (dependencies) => {
     //router.route('/').post(validationController.validateAccount,accountsController.createAccount); 
     router.route('/*')
         .all(accountsController.verifyToken); //ADD THIS: require token for all routes
-    router.post('/', fantasyMoviesValidator.validatefantasyMovies , fantasyMoviesController.createFantasyMovies);
- 
+    router.post('/', fantasyMoviesValidator.validatefantasyMovies, fantasyMoviesController.createFantasyMovies);
+    
+    router.route('/:id').get(fantasyMoviesController.getFantasyMovies);
+    
+    router.route('/:id').delete(fantasyMoviesController.deleteFantasyMovies);
+
     return router; 
 };
 export default createRouter;

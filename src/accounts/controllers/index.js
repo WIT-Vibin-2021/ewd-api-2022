@@ -59,7 +59,7 @@ export default (dependencies) => {
         //console.log(authHeader);
         
         const accessToken = authHeader.split(" ")[1];  // Example : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWxAZ21haWwuY29tIiwiaWF0IjoxNjU"
-        console.log("-----Access Token -> " + accessToken);
+        //console.log("-----Access Token -> " + accessToken);
         logger.customLogger.verbose('Access Token : '+ accessToken);
         const user = await accountService.verifyToken(accessToken, dependencies);
 
@@ -107,7 +107,7 @@ export default (dependencies) => {
             const favourites = await accountService.deleteFavourites(id, movieid, dependencies);
             response.status(200).json(favourites);
         } catch (err) {
-            logger.customLogger.error(`Favourite Add : Invalid Data ${err.message}`);
+            logger.customLogger.error(`Favourite Delete : Invalid Data ${err.message}`);
             next(new Error(`Invalid Data ${err.message}`));
         }
     };

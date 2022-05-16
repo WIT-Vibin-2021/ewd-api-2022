@@ -7,7 +7,7 @@ export default (dependencies) => {
     const validateAccount = async (request, response, next) => {
         // Input
         try {
-            console.log(request.body); 
+            //console.log(request.body); 
             //console.log("--------Account Validation----------"); 
             logger.customLogger.info('Account Validation');
             const validated = await accountValidator.validateAsync(request.body);
