@@ -1,10 +1,11 @@
 import express from 'express';
   import MoviesController from '../controllers';
   import AccountsController from '../../accounts/controllers';
+  import logger from '../../utils/logger';
 
   const createMoviesRouter = (dependencies) => {
 
-    console.log("Movies Routes");
+    logger.customLogger.info('Initializing Movies Route');
       const router = express.Router();
       // load controllers with dependencies
       const moviesController = MoviesController(dependencies);
@@ -24,6 +25,12 @@ import express from 'express';
 
       router.route('/:id/poster')
         .get(moviesController.findMoviesPoster);
+      
+      router.route('/populartvshows/:pageno')
+        .get(moviesController.findpopularTvShows);
+      
+      router.route('/movievideo/:movieid')
+        .get(moviesController.findMovieVideo);
 
       return router;
   };

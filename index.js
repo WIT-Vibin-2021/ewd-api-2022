@@ -17,8 +17,24 @@ import errorHandler from './src/utils/ErrorHandler';
 import db from './src/config/db';
 import accountSchema from './src/accounts/validators';
 import fmSchema from './src/fantasymovies/validators';
+import logger from './src/utils/logger';
+import expressWinston  from 'express-winston';
+import winston from'winston';
+
+logger.customLogger.info('Initializing the API app');
 
 const app = express();
+//------------ HTTP Request Logger ----- //
+app.use(expressWinston.logger({
+  transports: [
+    new winston.transports.Console()
+  ],
+  format: winston.format.combine(
+    winston.format.colorize(),
+    winston.format.simple(),
+  ),
+}));
+//------------ HTTP Request Logger ----- //
 dotenv.config(); 
 db.init();
 const dependencies = {
@@ -39,7 +55,7 @@ const port = process.env.PORT;
 app.use(express.json());
 app.get('/', (req, res) => { res.end('All Good!')});
 
- console.log("-------Main Index Page---------");    
+//console.log("-------Main Index Page---------");    
 // console.log(dependencies);    
 
 app.use('/api/accounts', createAccountsRouter(dependencies));
@@ -49,5 +65,8 @@ app.use('/api/movies', createMoviesRouter(dependencies));  // From TMDB Db
 app.use('/api/fantasymovies', fantasyMoviesRouter(dependencies));
 
 app.listen(port, () => {
-  console.info(`Server running at ${port}`);
+  //console.info(`Server running at ${port}`);
+  //logger.customLogger.log('info',`Server running at ${port}`);
+  logger.customLogger.info(`Server running at ${port}`);
+  logger.customLogger.http(`${port}`);
 });

@@ -1,6 +1,6 @@
 import EncryptionService from '../AuthenticatorService';
 import bcrypt from 'bcryptjs';
-
+import logger from '../../../utils/logger';
 export default class extends EncryptionService {
 
     async encrypt(password) {
@@ -10,10 +10,13 @@ export default class extends EncryptionService {
 
     async compare(password, encryptedPassword) {
         try {
-            // Compare password            
-            console.log(password +"---"+encryptedPassword +" ---- bcrypt");
+            // Compare password      
+            
+            logger.customLogger.info('Compare BCrypting.');      
+            //console.log(password +"---"+encryptedPassword +" ---- bcrypt");
             const result = await bcrypt.compare(password, encryptedPassword);
-            console.log(result+" ---- bcrypt");
+            //console.log(result+" ---- bcrypt");
+            logger.customLogger.info('Compare BCrypt result : '+ result);      
             return result;
         } catch (error) {
             return false;

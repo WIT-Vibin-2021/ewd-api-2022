@@ -25,6 +25,17 @@ export default {
         );
         return response.data;
     },
-    
+    findpopularTvShows: async (pageNo) => {
+      const response = await axios.get(                    
+          `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.TMDB_KEY}&language=en-US&page=${pageNo}`
+        );
+        return response.data;
+    },
+    findMovieVideo: async (movieId) => {
+      const response = await axios.get(
+          `http://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${process.env.TMDB_KEY}`                    
+        );
+        return response.data;
+    },
 
   };

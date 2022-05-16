@@ -1,3 +1,4 @@
+import logger from '../../../utils/logger';
 export default (dependencies) => {
 
     
@@ -7,11 +8,12 @@ export default (dependencies) => {
         // Input
         try {
             //console.log(request.body); 
-            console.log("--------fantasyMovies Validation----------"); 
+            logger.customLogger.info('Validation: Fantasy Movies');
             const validated = await fantasyMoviesValidator.validateAsync(request.body);
             request.body = validated;
             next();
         } catch (err) {
+            logger.customLogger.error(`Validation : Invalid Data ${err.message}`);
             next(new Error(`Invalid Data ${err.message}`));
         }
     };

@@ -1,14 +1,13 @@
 import AccountValidator from './../controllers/validation';
 import express from 'express';
 import AccountsController from '../controllers';
-
+import logger from '../../utils/logger';
 const createRouter = (dependencies) => {       
     const router = express.Router(); 
     const accountsController = AccountsController(dependencies);     
     const accountValidator = AccountValidator(dependencies);
     
-    console.log("--------Account Routes 1----------"); 
-
+    logger.customLogger.info('Initializing Account Route');
     //router.post('/', accountsController.createAccount); 
     //router.route('/').post(validationController.validateAccount,accountsController.createAccount); 
     router.post('/', accountValidator.validateAccount , accountsController.createAccount);

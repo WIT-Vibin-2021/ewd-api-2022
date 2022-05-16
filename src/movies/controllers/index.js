@@ -35,11 +35,23 @@ import moviesService from "./../services";
         //output
         response.status(200).json(accounts);
     };
+    const findpopularTvShows = async (request, response, next) => {        
+        const pageno = request.params.pageno;        
+        const movies = await moviesService.findpopularTvShows(pageno, dependencies);        
+        response.status(200).json(movies);
+    };
+    const findMovieVideo = async (request, response, next) => {        
+        const movieId = request.params.movieid;        
+        const movies = await moviesService.findMovieVideo(movieId, dependencies);        
+        response.status(200).json(movies);
+    };
 
-      return {
-          getMovie,
-          find,
-          findUpComingMovies,
-          findMoviesPoster
-      };
+    return {
+        getMovie,
+        find,
+        findUpComingMovies,
+        findMoviesPoster,
+        findpopularTvShows,
+        findMovieVideo
+    };
   };

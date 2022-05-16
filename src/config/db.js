@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-
+import logger from '../utils/logger';
 dotenv.config();
 
 export default {
@@ -18,7 +18,8 @@ export default {
         console.log('database disconnected');
       });
       db.once('open', () => {
-        console.log(`database connected to ${db.name} on ${db.host}`);
+        //console.log(`database connected to ${db.name} on ${db.host}`);        
+        logger.customLogger.info(`Database connected to ${db.name} on ${db.host}`);
         // //delete the existing accounts collection if in development mode
         // if (process.env.NODE_ENV=="development"){
         //   db.dropCollection("accounts",function(err, result) {console.log(result)} );

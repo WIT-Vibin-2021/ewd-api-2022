@@ -1,5 +1,6 @@
 //* validators/register.validator.js
 import Joi from 'joi';
+import logger from '../../utils/logger';
 
 const fantasyMoviesSchema = Joi.object({
     title: Joi.string().required(),    
@@ -9,6 +10,7 @@ const fantasyMoviesSchema = Joi.object({
     time: Joi.string().required(),    
     overview: Joi.string().required()
 });
-console.log("--------fantasyMovies Validator Index ----------"); 
+logger.customLogger.info('JOI Validator: Fantasy movie validator');
+// console.log("--------fantasyMovies Validator Index ----------"); 
 
 export default fantasyMoviesSchema;
