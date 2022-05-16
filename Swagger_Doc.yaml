@@ -2,13 +2,10 @@ openapi: 3.0.1
 info:
   title: Movies App API Swagger Doc
   description: All API details of movies web application
-  version: '0.1'
+  version: 1.1-oas3
 servers:
   - url: https://localhost:8080/
-  
 paths:
-
-### --- Movies ----#############################
   /api/movies/:
     get:
       responses:
@@ -22,7 +19,6 @@ paths:
                   $ref: '#/components/schemas/Movies'
         '404':
           description: Server or data Not Found
-          
   /api/movies/{movie-id}:
     get:
       parameters:
@@ -38,7 +34,21 @@ paths:
                   $ref: '#/components/schemas/Movies'
         '404':
           description: Server or data Not Found
-          
+  /api/movies/movievideo/{movie-id}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/MovieIdPath'
+      responses:
+        '200':
+          description: Video ref details from movies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovieVideo'
+        '404':
+          description: Server or data Not Found
   /api/movies/{movie-id}/poster:
     get:
       parameters:
@@ -54,7 +64,21 @@ paths:
                   $ref: '#/components/schemas/Movies'
         '404':
           description: Server or data Not Found
-          
+  /api/movies/populartvshows/{page-no}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/PageNoPath'
+      responses:
+        '200':
+          description: Details of a popular tv shows and pagenumber wise
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movies'
+        '404':
+          description: Server or data Not Found
   /api/movies/upcoming/:
     get:
       responses:
@@ -68,197 +92,194 @@ paths:
                   $ref: '#/components/schemas/MoviePoster'
         '404':
           description: Server or data Not Found
-  
   /api/accounts/{user-id}/favourites/{movie-id}:
     delete:
       parameters:
         - $ref: '#/components/parameters/MovieIdPath'
         - $ref: '#/components/parameters/UserIdPath'
       responses:
-          '204':
-            description: Bp Oxygen level details found and deleted successfully
-            content: 
-              application/json: {}
-          '404':
-            description: Server Not found
-
-###---Account ----#############################
+        '204':
+          description: Delete favouritr movie id by uder id.
+          content:
+            application/json: {}
+        '404':
+          description: Server Not found
   /api/accounts/:
-    post: 
+    post:
       description: Add a new account to the app
-      requestBody: 
+      requestBody:
         content:
           application/json:
             schema:
-                $ref: '#/components/schemas/Account'
-      responses: 
+              $ref: '#/components/schemas/Account'
+      responses:
+        '200':
+          description: Error In data or API
         '201':
           description: The new account has been created
-        '200':
-          description: Error In data or API
         '404':
           description: Server or data Not Found
-          
   /api/accounts/security/token:
-    post: 
+    post:
       description: Get token based on login details
-      requestBody: 
+      requestBody:
         content:
           application/json:
             schema:
-                $ref: '#/components/schemas/AccountToken'
-      responses: 
-        '201':
-          description: The Token has been fetched
+              $ref: '#/components/schemas/AccountToken'
+      responses:
         '200':
           description: Error In data or API
-        '404':
-          description: Server or data Not Found
+        '201':
+          description: The Token has been fetched
         '401':
           description: Unauthorised
-          
+        '404':
+          description: Server or data Not Found
   /api/accounts/{user-id}/favourites:
-    post: 
+    post:
       description: Add a new account to the app
       security:
         - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/UserIdPath'
-      requestBody: 
+      requestBody:
         content:
           application/json:
             schema:
-                $ref: '#/components/schemas/MovieId'
-      responses: 
-        '201':
-          description: The new account has been created
+              $ref: '#/components/schemas/MovieId'
+      responses:
         '200':
           description: Error In data or API
-        '500':
-          description: Internal Server Error
+        '201':
+          description: The new account has been created
         '404':
           description: Server or data Not Found
-          
-###---Fantasy Movies ----#############################
+        '500':
+          description: Internal Server Error
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        '200':
+          description: Details of favourite using email id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovieId'
+        '404':
+          description: Server or data Not Found  
+  /api/accounts/email/{email-id}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserEmailPath'
+      responses:
+        '200':
+          description: Details of account using email id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '404':
+          description: Server or data Not Found  
   /api/fantasymovies/:
     post:
       security:
         - bearerAuth: []
       description: Add a new fantasy movie to the app
-      requestBody: 
+      requestBody:
         content:
           application/json:
             schema:
-                $ref: '#/components/schemas/FantasyMovie'
-      responses: 
-        '201':
-          description: The new account has been created
+              $ref: '#/components/schemas/FantasyMovie'
+      responses:
         '200':
           description: Error In data or API
-        '500':
-          description: Internal server error
+        '201':
+          description: The new account has been created
         '404':
           description: Server or data Not Found
-
-#############################################
-#              Token                        #
-#############################################          
+        '500':
+          description: Internal server error
+  /api/fantasymovies/{fantasy-id}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/FantasyIdPath'
+      responses:
+        '200':
+          description: Details of fantasy movie by id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FantasyMovie'
+        '404':
+          description: Server or data Not Found
+    delete:
+      parameters:
+        - $ref: '#/components/parameters/FantasyIdPath'
+      responses:
+        '204':
+          description: Delete Fantasy Movies by Id
+          content:
+            application/json: {}
+        '404':
+          description: Server Not found
 components:
   securitySchemes:
-    bearerAuth:       
+    bearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT 
+      bearerFormat: JWT
   responses:
     UnauthorizedError:
       description: Access token is missing or invalid
-#############################################
-#            Parameters                     #
-#############################################
   parameters:
-    MovieIdPath: 
+    MovieIdPath:
       in: path
       name: movie-id
-      description: movie id path parameter
+      description: Movie id path parameter
       required: true
       schema:
         type: integer
         example: 3232
-        
-    UserIdPath: 
+    PageNoPath:
+      in: path
+      name: page-no
+      description: Page Number
+      required: true
+      schema:
+        type: integer
+        example: 20
+    UserEmailPath:
+      in: path
+      name: email-id
+      description: E-mail Id
+      required: true
+      schema:
+        type: string
+        example: test@test.com
+    FantasyIdPath:
+      in: path
+      name: fantasy-id
+      description: Fantasy movie Id
+      required: true
+      schema:
+        type: integer
+        example: 20
+    UserIdPath:
       in: path
       name: user-id
       description: user id parameter
       required: true
       schema:
-          type: string
-          example: 627bf3b233c6af61500ffc22
-          
-    ActivityIdPath:
-      in: path
-      name: activity-id
-      description: Activity id path parameter
-      required: true
-      schema:
-        type: integer
-        example: 8281
-        
-    BpOxymeterIdPath:
-      in: path
-      name: bpoxy-id
-      description: BpOxymeter id path parameter
-      required: true
-      schema:
-        type: integer
-        example: 8281
-        
-    FoodIdPath:
-      in: path
-      name: food-id
-      description: BpOxymeter id path parameter
-      required: true
-      schema:
-        type: integer
-        example: 8281
-        
-    NutritionId:
-      in: path
-      name: nit-id
-      description: BpOxymeter id path parameter
-      required: true
-      schema:
-        type: integer
-        example: 8281
-        
-    FromDate:
-      in: path
-      name: frm_date
-      description: From Date
-      required: true
-      schema:
         type: string
-        example: 2020-06-10T05:59:27.258Z
-        
-    ToDate:
-      in: path
-      name: to_date
-      description: From Date
-      required: true
-      schema:
-        type: string
-        example: 2020-06-10T05:59:27.258Z
-        
-    OnDate:
-      in: path
-      name: on_date
-      description: From Date
-      required: true
-      schema:
-        type: string
-        example: 2020-06-10T05:59:27.258Z
-#############################################
-#           Schema                          #
-#############################################        
+        example: 627bf3b233c6af61500ffc22
   schemas:
     Movies:
       type: object
@@ -269,43 +290,78 @@ components:
         backdrop_path:
           type: number
           example: /egoyMDLqCxzjnSrWOz50uLlJWmD.jpg
-        genre_ids: 
+        genre_ids:
           type: string
-          example: [28, 878, 35,]
-        id: 
+          example:
+            - 28
+            - 878
+            - 35
+        id:
           type: number
           example: 675433
-        original_title: 
+        original_title:
           type: string
           example: Sonic the Hedgehog 2
-        original_language: 
+        original_language:
           type: string
           example: en
-        overview: 
+        overview:
           type: string
           example: After settling in Green Hills
-        popularity: 
+        popularity:
           type: number
           example: 60352
-        poster_path: 
+        poster_path:
           type: string
           example: /6DrHO1jr3qVrViUO6s6kFiAGM7.jpg
-        release_date: 
+        release_date:
           type: string
-          example: "2022-03-30"
-        title: 
+          example: '2022-03-30'
+        title:
           type: string
           example: Sonic the Hedgehog
-        video: 
+        video:
           type: string
           example: false
-        vote_average: 
+        vote_average:
           type: number
           example: 7.8
-        vote_count: 
+        vote_count:
           type: number
           example: 3416
-    
+    MovieVideo:
+      type: object
+      properties:
+        iso_639_1:
+          type: string
+          example: en
+        iso_3166_1:
+          type: string
+          example: us
+        name:
+          type: string
+          example: International Trailer
+        key:
+          type: string
+          example: 3UFWsEY8Hdc
+        site:
+          type: string
+          example: YouTube
+        size:
+          type: number
+          example: 1080
+        type:
+          type: string
+          example: Trailer
+        official:
+          type: string
+          example: true
+        published_at:
+          type: string
+          example: 2021-02-09T21:09:34.000Z
+        id:
+          type: string
+          example: 602662620a94d4003d6e53fb
     MoviePoster:
       type: object
       properties:
@@ -315,22 +371,21 @@ components:
         height:
           type: number
           example: 2160
-        iso_639_1: 
+        iso_639_1:
           type: string
           example: null
-        file_path: 
+        file_path:
           type: string
           example: /6DrHO1jr3qVrViUO6s6kFiAGM7.jpg
-        vote_average: 
+        vote_average:
           type: number
           example: 7.8
-        vote_count: 
+        vote_count:
           type: number
           example: 3416
-        width: 
+        width:
           type: number
           example: 2300
-          
     Account:
       type: object
       properties:
@@ -346,14 +401,12 @@ components:
         password:
           type: string
           example: alpha@$%Numeric
-    
     MovieId:
       type: object
       properties:
         movieId:
           type: number
           example: 3498
-          
     AccountToken:
       type: object
       properties:
@@ -363,7 +416,6 @@ components:
         password:
           type: string
           example: alpha@$%Numeric
-  
     FantasyMovie:
       type: object
       properties:
@@ -378,11 +430,10 @@ components:
           example: English
         release:
           type: string
-          example: 2022-06-10
+          example: '2022-06-10T00:00:00.000Z'
         time:
           type: string
-          example: 02:20:10
+          example: '02:20:10'
         overview:
           type: string
           example: Test Overview of the Movie
-          
