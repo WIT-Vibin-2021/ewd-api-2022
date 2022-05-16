@@ -2,14 +2,15 @@ import FantasyMoviesValidator from './../controllers/validation';
 import express from 'express';
 import FantasyMoviesController from '../controllers';
 import AccountsController from '../../accounts/controllers';
-
+import logger from '../../utils/logger';
 const createRouter = (dependencies) => {       
     const router = express.Router(); 
     const fantasyMoviesController = FantasyMoviesController(dependencies);     
     const fantasyMoviesValidator = FantasyMoviesValidator(dependencies);
     const accountsController = AccountsController(dependencies);
     
-    console.log("--------fantasyMovies Routes ----------"); 
+    
+    logger.customLogger.info('Initializing Fantasy Movies Route');
 
     //router.post('/', accountsController.createAccount); 
     //router.route('/').post(validationController.validateAccount,accountsController.createAccount); 

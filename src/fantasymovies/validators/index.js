@@ -9,6 +9,6 @@ const fantasyMoviesSchema = Joi.object({
     time: Joi.string().required(),    
     overview: Joi.string().required()
 });
-console.log("--------fantasyMovies Validator Index ----------"); 
+// console.log("--------fantasyMovies Validator Index ----------"); 
 
 export default fantasyMoviesSchema;
