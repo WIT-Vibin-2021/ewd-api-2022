@@ -25,6 +25,12 @@ import express from 'express';
 
       router.route('/:id/poster')
         .get(moviesController.findMoviesPoster);
+      
+      router.route('/populartvshows/:pageno')
+        .get(moviesController.findpopularTvShows);
+      
+      router.route('/movievideo/:movieid')
+        .get(moviesController.findMovieVideo);
 
       return router;
   };
