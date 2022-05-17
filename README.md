@@ -1,21 +1,18 @@
 ![](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)![](https://img.shields.io/badge/Microsoft_Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)![](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)![](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)![](https://img.shields.io/badge/tmdb%20API-0088CC?style=for-the-badge&logo=&logoColor=white)
 </br>[![Latest Stable Version](https://img.shields.io/badge/Express%20Winston-4.2.0-blue?style=for-the-badge)](https://www.npmjs.com/package/express-winston?activeTab=versions) 
 [![Latest Stable Version](https://img.shields.io/badge/Winston-3.7.2-blue?style=for-the-badge)](https://www.npmjs.com/package/winston?activeTab=readme) 
+[![Latest Stable Version](https://img.shields.io/badge/newman%20reporter-1.22.9-blue?style=for-the-badge)](https://www.npmjs.com/package/newman-reporter-htmlextra)
 [![Latest Stable Version](https://img.shields.io/badge/JOI-17.6.0-blue?style=for-the-badge)](https://www.npmjs.com/package/joi)
 [![Latest Stable Version](https://img.shields.io/badge/bcryptjs-2.4.3-blue?style=for-the-badge)](https://www.npmjs.com/package/bcryptjs)
 [![Latest Stable Version](https://img.shields.io/badge/passport%20jwt-4.0.0-blue?style=for-the-badge)](https://www.npmjs.com/package/passport-jwt)
-[![Latest Stable Version](https://img.shields.io/badge/newman%20reporter-1.22.9-blue?style=for-the-badge)](https://www.npmjs.com/package/newman-reporter-htmlextra)
+
 -----
 
 # Assignment 2 - Web API.
 
-<<<<<<< Updated upstream
-Name: Your Name
-=======
 Name: Vibin Varghese [Student Id: 20096057]
 
 ## Overview 
->>>>>>> Stashed changes
 
 > Project have APIs which is integrated to React Movies app. Which includes
 + TMDB endpoints and react movies app integration (Middleware APIs)
@@ -30,9 +27,6 @@ Name: Vibin Varghese [Student Id: 20096057]
 + JOI Validations(Account & Fantasy movie creation)
 </br>
 
-<<<<<<< Updated upstream
-Give a brief overview of the Web API functionality.
-=======
 > List of APIs created and tested
 
 ##### Posting Data to MongoDB
@@ -48,7 +42,6 @@ Give a brief overview of the Web API functionality.
 ##### Deleteing data from MongoDB
 + Delete favourite movies
 + Delete fantasy movies
->>>>>>> Stashed changes
 
 ## Installation Requirements
 > Following softwares are required to run the API's.
@@ -112,7 +105,7 @@ Routes ➡️ Controllers ➡️ Services ➡️ Repository ➡️ MongoDB
 [SwaggerHub Doc](https://app.swaggerhub.com/apis-docs/WIT-Vibin-2021/Movies_All_API/1.1-oas3) </br>
 [Swagger Markdown](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/Swagger_Doc.md)
 
-![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/images/SwaggerHub.png)
+![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/SwaggerHub.png)
 
 ## Security and Authentication
 For security, few routes are protected with token and account verification is listed below..
@@ -137,7 +130,7 @@ For security, few routes are protected with token and account verification is li
 ```bat
 password:Joi.string().min(7).required().regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{7,}$/)
 ```
-![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/images/MongoDB.png)
+![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/MongoDB.png)
 ## Integrating with React App
 
 * Two major TMBD API(Upcoming movies and popular Tv shows with pagination) is replaced with the new Web app API. 
@@ -165,20 +158,23 @@ export const removeFavouriteMovies = (userid, movieid) => {
 - Seperate collection created and all passed test run.
 - Good use of collection and environments variables
 - Random variable learning and used in pre-request script for Fantasy movie POST testing
-![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/images/PostMan.png)
-> Test Report
-![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/images/TestReport.png)
-
+![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/PostMan.png)
+----
+### Test Report
+![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/TestReport.png)
+----
 ## Live Hosting
 - Web API app is hosted in Microsoft Azure
 - Based on WIT mail id, I have registered a free tire subscription with limited credit and resources
 - Azure Cosmos DB is used to view the data stored in the Azure MongoDB
-> Azure Console
-![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/images/AzureConsole.png)
-> Azure CosmosDB
-![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/images/AzureCOSMOS.png)
-> Azure call from Post man
-![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/images/AzurePostMan.png)
+### Azure Console
+![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/AzureConsole.png)
+----
+### Azure CosmosDB
+![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/AzureCOSMOS.png)
+-----
+### Azure call from Post man
+![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/AzurePostMan.png)
 
 ## Extra features
 
