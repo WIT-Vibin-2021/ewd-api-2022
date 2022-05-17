@@ -6,7 +6,6 @@
 [![Latest Stable Version](https://img.shields.io/badge/bcryptjs-2.4.3-blue?style=for-the-badge)](https://www.npmjs.com/package/bcryptjs)
 [![Latest Stable Version](https://img.shields.io/badge/passport%20jwt-4.0.0-blue?style=for-the-badge)](https://www.npmjs.com/package/passport-jwt)
 
------
 
 # Assignment 2 - Web API.
 
@@ -95,7 +94,7 @@ npm start
 > To Stop the app, in the terminal press **ctrl + c** and press **'y'** for the prompted question *Terminate batch job (Y/N)?*.
 
 ## API Design
-The layered approach used in this Web API App, whihc is influenced by clean architecture. The objective is to create software that is durable, split into layers, and independent of technology.
+> The layered approach used in this Web API App, whihc is influenced by clean architecture. The objective is to create software that is durable, split into layers, and independent of technology.
 ```bat
 Routes ➡️ Controllers ➡️ Services ➡️ Repository ➡️ MongoDB 
                             ⬇️
@@ -108,7 +107,7 @@ Routes ➡️ Controllers ➡️ Services ➡️ Repository ➡️ MongoDB
 ![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/SwaggerHub.png)
 
 ## Security and Authentication
-For security, few routes are protected with token and account verification is listed below..
+> For security, few routes are protected with token and account verification is listed below..
 
 | PATH                                 | GET                       | POST                          | PUT                      | DELETE                 |
 | ------------------------------------ | ------------------------- | ----------------------------- | ------------------------ | ---------------------- |
@@ -120,7 +119,7 @@ For security, few routes are protected with token and account verification is li
 
 
 ### Design
-
+>
 * WebApp API for movies is using MongoDB as backend to save Account details and Fantasy movies. 
 * Two collections created in the MongoDb 
   * Accounts
@@ -154,6 +153,7 @@ export const removeFavouriteMovies = (userid, movieid) => {
 
 ~~~
 ## Post Man Testing
+>
 - All API is tested in postman
 - Seperate collection created and all passed test run.
 - Good use of collection and environments variables
@@ -164,6 +164,7 @@ export const removeFavouriteMovies = (userid, movieid) => {
 ![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/TestReport.png)
 ----
 ## Live Hosting
+>
 - Web API app is hosted in Microsoft Azure
 - Based on WIT mail id, I have registered a free tire subscription with limited credit and resources
 - Azure Cosmos DB is used to view the data stored in the Azure MongoDB
@@ -176,8 +177,13 @@ export const removeFavouriteMovies = (userid, movieid) => {
 ### Azure call from Post man
 ![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/AzurePostMan.png)
 
+## Logging (winston)
+### Console logging result using Winston
+![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/Winston_1.png)
+### Logging writing to file(info and error only)
+![image](https://github.com/WIT-Vibin-2021/ewd-api-2022/blob/main/image/Winston_2.png)
 ## Extra features
-
+>
 - Delete API for favourite and fantasy movies.
 - JOI Validation while posting data to DB.
 - Logging enabled in the app(writes to files and in console), Winston Logger used (https://www.npmjs.com/package/winston?activeTab=readme  v3.7.2).
@@ -186,10 +192,13 @@ export const removeFavouriteMovies = (userid, movieid) => {
 - Token and related data saved in local, so that even after movies app reload user will not logout automatically. 
 - Private and protected routes for movies app and web app API
 
-## Independent learning.
-
+## Independent learning
+>
 - Microsoft Azure hosting of Nodejs API- 
 - Multiple branch in git hub, with tag and release
 - Swagger Documentation
 - Winston logging options
 - Post man test scripts
+
+## Youtube Demo Video
+[Demo Video](https://www.youtube.com/watch?v=U2Z4KJaPKvk)
