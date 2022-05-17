@@ -1,7 +1,7 @@
 # Movies App API Swagger Doc
 All API details of movies web application
 
-## Version: 1.1-oas3
+## Version: 0.1
 
 ### /api/movies/
 
@@ -20,29 +20,13 @@ All API details of movies web application
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
-| movie-id | path | Movie id path parameter | Yes | integer |
+| movie-id | path | movie id path parameter | Yes | integer |
 
 ##### Responses
 
 | Code | Description |
 | ---- | ----------- |
 | 200 | Details of a movie based on Id |
-| 404 | Server or data Not Found |
-
-### /api/movies/movievideo/{movie-id}
-
-#### GET
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| movie-id | path | Movie id path parameter | Yes | integer |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Video ref details from movies |
 | 404 | Server or data Not Found |
 
 ### /api/movies/{movie-id}/poster
@@ -52,29 +36,13 @@ All API details of movies web application
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
-| movie-id | path | Movie id path parameter | Yes | integer |
+| movie-id | path | movie id path parameter | Yes | integer |
 
 ##### Responses
 
 | Code | Description |
 | ---- | ----------- |
 | 200 | Details of a movie based on Id |
-| 404 | Server or data Not Found |
-
-### /api/movies/populartvshows/{page-no}
-
-#### GET
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| page-no | path | Page Number | Yes | integer |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | Details of a popular tv shows and pagenumber wise |
 | 404 | Server or data Not Found |
 
 ### /api/movies/upcoming/
@@ -94,15 +62,21 @@ All API details of movies web application
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
-| movie-id | path | Movie id path parameter | Yes | integer |
+| movie-id | path | movie id path parameter | Yes | integer |
 | user-id | path | user id parameter | Yes | string |
 
 ##### Responses
 
 | Code | Description |
 | ---- | ----------- |
-| 204 | Delete favouritr movie id by uder id. |
+| 204 | Bp Oxygen level details found and deleted successfully |
 | 404 | Server Not found |
+
+##### Security
+
+| Security Schema | Scopes |
+| --- | --- |
+| bearerAuth | |
 
 ### /api/accounts/
 
@@ -163,6 +137,8 @@ Add a new account to the app
 | --- | --- |
 | bearerAuth | |
 
+<<<<<<< Updated upstream
+=======
 #### GET
 ##### Parameters
 
@@ -176,6 +152,12 @@ Add a new account to the app
 | ---- | ----------- |
 | 200 | Details of favourite using email id |
 | 404 | Server or data Not Found |
+
+##### Security
+
+| Security Schema | Scopes |
+| --- | --- |
+| bearerAuth | |
 
 ### /api/accounts/email/{email-id}
 
@@ -193,6 +175,7 @@ Add a new account to the app
 | 200 | Details of account using email id |
 | 404 | Server or data Not Found |
 
+>>>>>>> Stashed changes
 ### /api/fantasymovies/
 
 #### POST
@@ -215,6 +198,8 @@ Add a new fantasy movie to the app
 | --- | --- |
 | bearerAuth | |
 
+<<<<<<< Updated upstream
+=======
 ### /api/fantasymovies/{fantasy-id}
 
 #### GET
@@ -231,6 +216,12 @@ Add a new fantasy movie to the app
 | 200 | Details of fantasy movie by id |
 | 404 | Server or data Not Found |
 
+##### Security
+
+| Security Schema | Scopes |
+| --- | --- |
+| bearerAuth | |
+
 #### DELETE
 ##### Parameters
 
@@ -245,6 +236,13 @@ Add a new fantasy movie to the app
 | 204 | Delete Fantasy Movies by Id |
 | 404 | Server Not found |
 
+##### Security
+
+| Security Schema | Scopes |
+| --- | --- |
+| bearerAuth | |
+
+>>>>>>> Stashed changes
 ### Models
 
 #### Movies
@@ -265,21 +263,6 @@ Add a new fantasy movie to the app
 | video | string | _Example:_ `false` | No |
 | vote_average | number | _Example:_ `7.8` | No |
 | vote_count | number | _Example:_ `3416` | No |
-
-#### MovieVideo
-
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| iso_639_1 | string | _Example:_ `"en"` | No |
-| iso_3166_1 | string | _Example:_ `"us"` | No |
-| name | string | _Example:_ `"International Trailer"` | No |
-| key | string | _Example:_ `"3UFWsEY8Hdc"` | No |
-| site | string | _Example:_ `"YouTube"` | No |
-| size | number | _Example:_ `1080` | No |
-| type | string | _Example:_ `"Trailer"` | No |
-| official | string | _Example:_ `true` | No |
-| published_at | string | _Example:_ `{}` | No |
-| id | string | _Example:_ `"602662620a94d4003d6e53fb"` | No |
 
 #### MoviePoster
 
@@ -322,6 +305,6 @@ Add a new fantasy movie to the app
 | title | string | _Example:_ `"Test Title of the Movie"` | No |
 | genre | string | _Example:_ `"Action"` | No |
 | language | string | _Example:_ `"English"` | No |
-| release | string | _Example:_ `"2022-06-10T00:00:00.000Z"` | No |
+| release | string | _Example:_ `{}` | No |
 | time | string | _Example:_ `"02:20:10"` | No |
 | overview | string | _Example:_ `"Test Overview of the Movie"` | No |
