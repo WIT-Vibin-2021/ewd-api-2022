@@ -1,12 +1,12 @@
 {
 	"info": {
 		"_postman_id": "01573dac-fb89-4de1-8ee5-6eb4e6c388af",
-		"name": "Movies APIs",
+		"name": "Movies APIs Testing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create an Account",
+			"name": "Post Account",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -151,8 +151,11 @@
 							"    pm.expect(jsonData).to.have.property(\"title\");\r",
 							"    pm.expect(jsonData.title).to.be.a(\"string\");\r",
 							"    pm.expect(jsonData.genre).to.eql(pm.collectionVariables.get(\"genre\"));\r",
-							"    pm.expect(jsonData.language).to.eql(pm.collectionVariables.get(\"language\"));   \r",
-							"  })"
+							"    pm.expect(jsonData.language).to.eql(pm.collectionVariables.get(\"language\"));  \r",
+							"\r",
+							"       pm.collectionVariables.set(\"fantasyid\", jsonData.id) \r",
+							"  })\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -174,6 +177,133 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"title\": \"{{title}}\",\r\n    \"genre\":\"{{genre}}\",\r\n    \"language\":\"{{language}}\",\r\n    \"release\": \"{{release}}\",\r\n    \"time\":\"{{title}}\",\r\n    \"overview\":\"{{overview}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/fantasymovies",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"fantasymovies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Fantasy Movies : Null Data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"title\", pm.variables.replaceIn('{{$randomLoremWord}}'))\r",
+							"pm.collectionVariables.set(\"genre\",'Action')\r",
+							"pm.collectionVariables.set(\"language\", 'English')\r",
+							"pm.collectionVariables.set(\"release\", pm.variables.replaceIn('{{$randomDateFuture}}'))\r",
+							"pm.collectionVariables.set(\"time\", '02:40:30')\r",
+							"pm.collectionVariables.set(\"overview\", pm.variables.replaceIn('{{$randomLoremSentence}}'))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Add Fantasy Movie: Null Title, Return 500\",()=>pm.response.to.have.status(500))\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"\",\r\n    \"genre\":\"{{genre}}\",\r\n    \"language\":\"{{language}}\",\r\n    \"release\": \"{{release}}\",\r\n    \"time\":\"{{title}}\",\r\n    \"overview\":\"{{overview}}\"\r\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/fantasymovies",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"fantasymovies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Fantasy Movies : In Valid Token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"title\", pm.variables.replaceIn('{{$randomLoremWord}}'))\r",
+							"pm.collectionVariables.set(\"genre\",'Action')\r",
+							"pm.collectionVariables.set(\"language\", 'English')\r",
+							"pm.collectionVariables.set(\"release\", pm.variables.replaceIn('{{$randomDateFuture}}'))\r",
+							"pm.collectionVariables.set(\"time\", '02:40:30')\r",
+							"pm.collectionVariables.set(\"overview\", pm.variables.replaceIn('{{$randomLoremSentence}}'))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"  pm.test(\"Invalid Token: Correct Response\", function () {\r",
+							"     pm.expect(pm.response.code).to.be.oneOf([500,401,403]);     \r",
+							"  });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"{{title}}\",\r\n    \"genre\":\"{{genre}}\",\r\n    \"language\":\"{{language}}\",\r\n    \"release\": \"{{release}}\",\r\n    \"time\":\"{{title}}\",\r\n    \"overview\":\"{{overview}}\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -285,14 +415,7 @@
 			],
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{authToken}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [],
@@ -356,6 +479,251 @@
 						"api",
 						"movies",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movies: By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Movies: Status code is 200\",  ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Movies: Content-Type is correct\", function () {\r",
+							"   pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Movies: Response time is less than 400ms\", () => {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"var data = pm.response.json();\r",
+							"\r",
+							"pm.test('Get Movies: Number of keys in result is ' + Object.keys(data).length, function () {\r",
+							"    pm.expect(Object.keys(data).length).to.equal(25);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Movies: Correct Movie Id value\", () => { \r",
+							"    pm.expect(pm.response.json().id).to.equal(527774); \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/movies/{{movieId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"movies",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Upcoming Movies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Movies: Status code is 200\",  ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Movies: Content-Type is correct\", function () {\r",
+							"   pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Movies: Response time is less than 400ms\", () => {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"var data = pm.response.json();\r",
+							"\r",
+							"pm.test('Get Movies: Upcoming Movies result between ' \r",
+							"+pm.response.json().dates.maximum + \" and \"+ pm.response.json().dates.minimum, function () {\r",
+							"    pm.expect(Object.keys(data).length).to.greaterThan(1);     \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/movies/upcoming/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"movies",
+						"upcoming",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Popular TV Shows - Pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Movies: Status code is 200\",  ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Movies: Content-Type is correct\", function () {\r",
+							"   pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Movies: Response time is less than 400ms\", () => {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"var data = pm.response.json();\r",
+							"\r",
+							"pm.test('Get Movies: Popular TV Shows result of page :  ' \r",
+							"+pm.response.json().page, function () {\r",
+							"    pm.expect(pm.response.json().page).to.eql(2);     \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/movies/populartvshows/{{pageno}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"movies",
+						"populartvshows",
+						"{{pageno}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movie Video",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Movie Video: Status code is 200\",  ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Movie Video: Content-Type is correct\", function () {\r",
+							"   pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Movie Video: Response time is less than 400ms\", () => {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"var data = pm.response.json();\r",
+							"\r",
+							"pm.test('Get Movie Video: Fetch Site property ', function () {    \r",
+							"    pm.expect(data.site).to.eql(pm.collectionVariables.get(\"site\"));  \r",
+							"  \r",
+							"});\r",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/movies/movievideo/{{movieId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"movies",
+						"movievideo",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movie Poster",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Poster: Status code is 200\",  ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Poster: Content-Type is correct\", function () {\r",
+							"   pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Poster: Response time is less than 400ms\", () => {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"var data = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Get Poster: Correct Poster by Movie Id\", () => { \r",
+							"    pm.expect(pm.response.json().id).to.equal(527774); \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/movies/{{movieId}}/poster",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"movies",
+						"{{movieId}}",
+						"poster"
 					]
 				}
 			},
@@ -463,80 +831,31 @@
 			"response": []
 		},
 		{
-			"name": "Get Movies: By Id",
+			"name": "Get Fantasy Movies",
 			"event": [
 				{
-					"listen": "test",
+					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"pm.test(\"Get Movies: Status code is 200\",  ()=> {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Get Movies: Content-Type is correct\", function () {\r",
-							"   pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Get Movies: Response time is less than 400ms\", () => {\r",
-							"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
-							"});\r",
-							"\r",
-							"var data = pm.response.json();\r",
-							"\r",
-							"pm.test('Get Movies: Number of keys in result is ' + Object.keys(data).length, function () {\r",
-							"    pm.expect(Object.keys(data).length).to.equal(25);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Get Movies: Correct Movie Id value\", () => { \r",
-							"    pm.expect(pm.response.json().id).to.equal(527774); \r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/api/movies/{{movieId}}",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"movies",
-						"{{movieId}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Upcoming Movies",
-			"event": [
+				},
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Get Movies: Status code is 200\",  ()=> {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
+							"pm.test(\"Add Fantasy Movie: Successful Response\",()=>pm.response.to.have.status(200))\r",
+							"const jsonData = pm.response.json();\r",
+							"  pm.test(\"Add Fantasy Movie: Response Object contains correct properties\",()=>{\r",
+							"    pm.expect(jsonData).to.have.property(\"title\");\r",
+							"    pm.expect(jsonData.title).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.genre).to.eql(pm.collectionVariables.get(\"genre\"));\r",
+							"    pm.expect(jsonData.language).to.eql(pm.collectionVariables.get(\"language\"));  \r",
 							"\r",
-							"pm.test(\"Get Movies: Content-Type is correct\", function () {\r",
-							"   pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Get Movies: Response time is less than 400ms\", () => {\r",
-							"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
-							"});\r",
-							"\r",
-							"var data = pm.response.json();\r",
-							"\r",
-							"pm.test('Get Movies: Upcoming Movies result between ' \r",
-							"+pm.response.json().dates.maximum + \" and \"+ pm.response.json().dates.minimum, function () {\r",
-							"    pm.expect(Object.keys(data).length).to.greaterThan(1);     \r",
-							"});\r",
+							"       pm.collectionVariables.set(\"fantasyid\", jsonData.id) \r",
+							"  })\r",
 							""
 						],
 						"type": "text/javascript"
@@ -544,66 +863,27 @@
 				}
 			],
 			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/api/movies/upcoming/",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"movies",
-						"upcoming",
-						""
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Movie Poster",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Get Poster: Status code is 200\",  ()=> {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Get Poster: Content-Type is correct\", function () {\r",
-							"   pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Get Poster: Response time is less than 400ms\", () => {\r",
-							"  pm.expect(pm.response.responseTime).to.be.below(400);\r",
-							"});\r",
-							"\r",
-							"var data = pm.response.json();\r",
-							"\r",
-							"pm.test(\"Get Poster: Correct Poster by Movie Id\", () => { \r",
-							"    pm.expect(pm.response.json().id).to.equal(527774); \r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/movies/{{movieId}}/poster",
+					"raw": "{{url}}/api/fantasymovies/{{fantasyid}}",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
-						"movies",
-						"{{movieId}}",
-						"poster"
+						"fantasymovies",
+						"{{fantasyid}}"
 					]
 				}
 			},
@@ -648,6 +928,59 @@
 						"{{userid}}",
 						"favourites",
 						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Fantasy Movies",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Add Fantasy Movie: Successful Response\",()=>pm.response.to.have.status(200))\r",
+							"pm.test(\"Delete Favourites: Response time is less than 400ms\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/fantasymovies/{{fantasyid}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"fantasymovies",
+						"{{fantasyid}}"
 					]
 				}
 			},
@@ -735,6 +1068,15 @@
 		{
 			"key": "overview",
 			"value": "Test Overview",
+			"type": "string"
+		},
+		{
+			"key": "fantasyid",
+			"value": ""
+		},
+		{
+			"key": "pageno",
+			"value": "2",
 			"type": "string"
 		}
 	]
